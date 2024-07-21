@@ -22,11 +22,11 @@ jobs:
       - name: Check
         uses: actions/checkout@v3
         with:
-          ref: e1ca6d2fb84726609e86269ad3e3e14aad2d0c5f
+          ref: 09385e2c933ba0c2b36ad94988df8e8843c3fc5e
   
       - name: Test with Maven 
         run: | 
-              for i in {1..100}; do mvn test -Dtest=org.apache.http.client.async.HttpClientWithFutureTest -fae>>test_log.txt; done
+              for i in {1..100}; do mvn test -Dtest=org.apache.hc.client5.http.utils.TestURIUtils -fae>>test_log.txt; done
               echo "Maven tests completed." 
       - name: Upload Test Log 
         if: always() 
