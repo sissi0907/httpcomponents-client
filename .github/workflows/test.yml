@@ -22,19 +22,30 @@ jobs:
       - name: Check
         uses: actions/checkout@v3
         with:
-          ref: 117fc08438699ea1784fb1b0e7d6106acafd94c6
+          ref: a2a55f82e5d35b60abadc592fcc67306d26975b4
   
-      - name: Test with Maven
-        run: | 
-              for i in {1..100}; do mvn test -Dtest=org.apache.http.impl.client.TestClientAuthentication#testBasicAuthenticationFailureOnNonRepeatablePutDontExpectContinue -Dsurefire.failIfNoSpecifiedTests=false -fae>>test_log_HTTPCLIENT-951.txt; done
-              echo "Maven tests completed." 
-      - name: Upload Test Log 
-        if: always() 
-        uses: actions/upload-artifact@v2 
-        with: 
-          name: test_log_HTTPCLIENT-951
-          path: test_log_HTTPCLIENT-951.txt
-
-      - name: Nondex
-        run: mvn edu.illinois:nondex-maven-plugin:2.1.7:nondex -Dtest=org.apache.http.impl.client.TestClientAuthentication#testBasicAuthenticationFailureOnNonRepeatablePutDontExpectContinue -Dsurefire.failIfNoSpecifiedTests=false -DnondexRuns=100
-     
+      # - name: Test with Maven sync
+      #   run: | 
+      #         for i in {1..100}; do mvn test -Dtest=org.apache.hc.client5.testing.sync.TestSSLSocketFactory#testWeakCiphersDisabledByDefault -DfailIfNoTests=false -fae>>test_log_sync.txt; done
+      #         echo "Maven tests completed." 
+      # - name: Upload Test Log 
+      #   if: always() 
+      #   uses: actions/upload-artifact@v2 
+      #   with: 
+      #     name: test_log_sync 
+      #     path: test_log_sync.txt
+          
+      # - name: Test with Maven ssl
+      #   run: | 
+      #         for i in {1..100}; do mvn test -Dtest=org.apache.hc.client5.http.ssl.TestSSLSocketFactory#testWeakCiphersDisabledByDefault -DfailIfNoTests=false -fae>>test_log_ssl.txt; done
+      #         echo "Maven tests completed." 
+      # - name: Upload Test Log 
+      #   if: always() 
+      #   uses: actions/upload-artifact@v2 
+      #   with: 
+      #     name: test_log_ssl 
+      #     path: test_log_ssl.txt
+      - name: nondex_sync
+        run: mvn edu.illinois:nondex-maven-plugin:2.1.7:nondex -Dtest=org.apache.hc.client5.testing.sync.TestSSLSocketFactory#testWeakCiphersDisabledByDefault -DfailIfNoTests=false -DnondexRuns=100
+      - name: nondex_ssl
+        run: mvn edu.illinois:nondex-maven-plugin:2.1.7:nondex -Dtest=org.apache.hc.client5.http.ssl.TestSSLSocketFactory#testWeakCiphersDisabledByDefault -DfailIfNoTests=false -DnondexRuns=100 
