@@ -22,7 +22,7 @@ jobs:
       - name: Check
         uses: actions/checkout@v3
         with:
-          ref: 117fc08438699ea1784fb1b0e7d6106acafd94c6
+          ref: 09385e2c933ba0c2b36ad94988df8e8843c3fc5e
   
       # - name: Test with Maven sync
       #   run: | 
