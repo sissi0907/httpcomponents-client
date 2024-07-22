@@ -22,26 +22,17 @@ jobs:
       - name: Check
         uses: actions/checkout@v3
         with:
-          ref: a2a55f82e5d35b60abadc592fcc67306d26975b4
+          ref: 117fc08438699ea1784fb1b0e7d6106acafd94c6
   
       - name: Test with Maven sync
         run: | 
-              for i in {1..100}; do mvn test -Dtest=org.apache.hc.client5.testing.sync.TestSSLSocketFactory#testWeakCiphersDisabledByDefault -DfailIfNoTests=false -fae>>test_log_sync.txt; done
+              for i in {1..100}; do mvn test -Dtest=org.apache.http.impl.client.TestClientAuthentication#testBasicAuthenticationFailureOnNonRepeatablePutDontExpectContinue -DfailIfNoTests=false -fae>>test_log.txt; done
               echo "Maven tests completed." 
       - name: Upload Test Log 
         if: always() 
         uses: actions/upload-artifact@v2 
         with: 
-          name: test_log_sync 
-          path: test_log_sync.txt
+          name: test_log 
+          path: test_log.txt
           
-      - name: Test with Maven ssl
-        run: | 
-              for i in {1..100}; do mvn test -Dtest=org.apache.hc.client5.http.ssl.TestSSLSocketFactory#testWeakCiphersDisabledByDefault -DfailIfNoTests=false -fae>>test_log_ssl.txt; done
-              echo "Maven tests completed." 
-      - name: Upload Test Log 
-        if: always() 
-        uses: actions/upload-artifact@v2 
-        with: 
-          name: test_log_ssl 
-          path: test_log_ssl.txt
+     
